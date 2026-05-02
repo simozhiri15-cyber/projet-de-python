@@ -1,0 +1,114 @@
+{% extends 'refuge/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nom *</label>
+                            {{ form.nom }}
+                            {{ form.nom.errors }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Espèce *</label>
+                            {{ form.espece }}
+                            {{ form.espece.errors }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Race</label>
+                            {{ form.race }}
+                            {{ form.race.errors }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Sexe *</label>
+                            {{ form.sexe }}
+                            {{ form.sexe.errors }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Date de naissance estimée *</label>
+                            {{ form.date_naissance_estimee }}
+                            {{ form.date_naissance_estimee.errors }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Date d'arrivée *</label>
+                            {{ form.date_arrivee }}
+                            {{ form.date_arrivee.errors }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Statut *</label>
+                        {{ form.statut }}
+                        {{ form.statut.errors }}
+                    </div>
+
+                    <hr>
+                    <h5 class="fw-bold text-muted">Santé</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                {{ form.vaccine }}
+                                <label class="form-check-label" for="{{ form.vaccine.id_for_label }}">Vacciné</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                {{ form.sterilise }}
+                                <label class="form-check-label" for="{{ form.sterilise.id_for_label }}">Stérilisé</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <h5 class="fw-bold text-muted">Compatibilités</h5>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                {{ form.compatibilite_chats }}
+                                <label class="form-check-label" for="{{ form.compatibilite_chats.id_for_label }}">Entente Chats</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                {{ form.compatibilite_chiens }}
+                                <label class="form-check-label" for="{{ form.compatibilite_chiens.id_for_label }}">Entente Chiens</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                {{ form.compatibilite_enfants }}
+                                <label class="form-check-label" for="{{ form.compatibilite_enfants.id_for_label }}">Entente Enfants</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-2"></i>Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,99 @@
+{% extends 'refuge/base.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- Colonne de filtres -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fa-solid fa-filter me-2"></i>Filtres</h5>
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Recherche</label>
+                        {{ form.nom }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Espèce</label>
+                        {{ form.espece }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Sexe</label>
+                        {{ form.sexe }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Durée de séjour</label>
+                        {{ form.duree_sejour }}
+                    </div>
+                    <hr>
+                    <h6 class="fw-bold">Compatibilités</h6>
+                    <div class="form-check">
+                        {{ form.entente_chats }}
+                        <label class="form-check-label" for="{{ form.entente_chats.id_for_label }}">Ok Chats</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.entente_chiens }}
+                        <label class="form-check-label" for="{{ form.entente_chiens.id_for_label }}">Ok Chiens</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.entente_enfants }}
+                        <label class="form-check-label" for="{{ form.entente_enfants.id_for_label }}">Ok Enfants</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Rechercher</button>
+                    <a href="{% url 'animal_list' %}" class="btn btn-outline-secondary w-100 mt-2">Réinitialiser</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Colonne de résultats -->
+    <div class="col-md-9">
+        <h2 class="mb-4">Nos pensionnaires ({{ animaux|length }})</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for animal in animaux %}
+            <div class="col">
+                <div class="card card-animal h-100">
+                    <div class="card-body text-center">
+                        {% if animal.espece.nom_espece == 'Chien' %}
+                            <i class="fa-solid fa-dog fa-4x mb-3 text-secondary"></i>
+                        {% elif animal.espece.nom_espece == 'Chat' %}
+                            <i class="fa-solid fa-cat fa-4x mb-3 text-secondary"></i>
+                        {% else %}
+                            <i class="fa-solid fa-paw fa-4x mb-3 text-secondary"></i>
+                        {% endif %}
+                        
+                        <h4 class="card-title">{{ animal.nom }}</h4>
+                        <p class="card-text text-muted">
+                            {{ animal.espece }} - {% if animal.sexe == 'M' %}Mâle{% else %}Femelle{% endif %}
+                        </p>
+                        
+                        <div class="mb-3">
+                            {% if animal.statut == 'Disponible' %}
+                                <span class="badge badge-disponible px-3 py-2">Disponible</span>
+                            {% elif animal.statut == 'En soin' %}
+                                <span class="badge badge-en-soin px-3 py-2">En soin</span>
+                            {% elif animal.statut == 'Adopté' %}
+                                <span class="badge badge-adopte px-3 py-2"><i class="fa-solid fa-heart me-1"></i>Adopté</span>
+                            {% else %}
+                                <span class="badge badge-fa px-3 py-2">En FA</span>
+                            {% endif %}
+                        </div>
+                        
+                        <a href="{% url 'animal_detail' animal.id %}" class="btn btn-outline-primary btn-sm">Voir la fiche</a>
+                    </div>
+                    <div class="card-footer bg-transparent text-muted text-center small">
+                        Au refuge depuis le {{ animal.date_arrivee|date:"d/m/Y" }}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fa-solid fa-magnifying-glass fa-3x text-muted mb-3"></i>
+                <p class="lead">Aucun animal ne correspond à vos critères.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
