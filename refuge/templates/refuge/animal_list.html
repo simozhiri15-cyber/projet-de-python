@@ -1,99 +1,169 @@
 {% extends 'refuge/base.html' %}
 
+{% block hero %}
+<div class="hero-supreme reveal">
+    <div class="d-inline-flex align-items-center px-4 py-2 mb-4 rounded-pill" style="background: var(--primary-light); border: 1.5px solid rgba(255, 107, 107, 0.15);">
+        <i class="fa-solid fa-sparkles me-2" style="color: var(--primary);"></i>
+        <span class="tech-font small" style="color: var(--primary);">{{ animaux.paginator.count }} compagnons vous attendent</span>
+    </div>
+    <h1 class="hero-title fw-black" style="font-size: 4.5rem; letter-spacing: -2px;">Trouvez votre<br><span style="background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite;">Nouveau Compagnon</span></h1>
+    <p class="hero-subtitle mt-3 fs-5">Chaque animal mérite une famille aimante.<br>Parcourez nos profils et laissez la magie opérer.</p>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="row">
-    <!-- Colonne de filtres -->
-    <div class="col-md-3 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="fa-solid fa-filter me-2"></i>Filtres</h5>
-            </div>
-            <div class="card-body">
-                <form method="get">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Recherche</label>
-                        {{ form.nom }}
+<div class="row g-4">
+    <!-- Sidebar / Filters -->
+    <div class="col-xl-3 col-lg-4 reveal d-1">
+        <div class="glass-panel p-4 position-sticky overflow-hidden" style="top: 120px; border-radius: 32px;">
+            <div class="bg-blob blob-accent"></div>
+            <div style="position: relative; z-index: 1;">
+                <h5 class="mb-4 d-flex align-items-center tech-font fw-bold">
+                    <div class="icon-glass-sm accent-glass me-3">
+                        <i class="fa-solid fa-sliders" style="color: var(--accent);"></i>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Espèce</label>
-                        {{ form.espece }}
+                    Filtres
+                </h5>
+            
+            <form method="get">
+                <div class="mb-3">
+                    <label class="form-label">Nom</label>
+                    {{ form.nom }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Espèce</label>
+                    {{ form.espece }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sexe</label>
+                    {{ form.sexe }}
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Au refuge depuis</label>
+                    {{ form.duree_sejour }}
+                </div>
+                
+                <h6 class="tech-font mb-3 d-flex align-items-center" style="font-size: 0.82rem;">
+                    <div class="d-flex align-items-center justify-content-center rounded-3 me-2" style="width: 28px; height: 28px; background: var(--success-light);">
+                        <i class="fa-solid fa-users" style="color: var(--success); font-size: 0.7rem;"></i>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Sexe</label>
-                        {{ form.sexe }}
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Durée de séjour</label>
-                        {{ form.duree_sejour }}
-                    </div>
-                    <hr>
-                    <h6 class="fw-bold">Compatibilités</h6>
-                    <div class="form-check">
+                    ENTENTES
+                </h6>
+                <div class="p-3 mb-4 rounded-4" style="background: rgba(255,255,255,0.6); border: 1.5px solid rgba(0,0,0,0.04);">
+                    <div class="form-check form-switch fs-5 mb-3 d-flex align-items-center">
                         {{ form.entente_chats }}
-                        <label class="form-check-label" for="{{ form.entente_chats.id_for_label }}">Ok Chats</label>
+                        <label class="form-check-label ms-3 fw-bold small" for="{{ form.entente_chats.id_for_label }}">Chats</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check form-switch fs-5 mb-3 d-flex align-items-center">
                         {{ form.entente_chiens }}
-                        <label class="form-check-label" for="{{ form.entente_chiens.id_for_label }}">Ok Chiens</label>
+                        <label class="form-check-label ms-3 fw-bold small" for="{{ form.entente_chiens.id_for_label }}">Chiens</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check form-switch fs-5 d-flex align-items-center">
                         {{ form.entente_enfants }}
-                        <label class="form-check-label" for="{{ form.entente_enfants.id_for_label }}">Ok Enfants</label>
+                        <label class="form-check-label ms-3 fw-bold small" for="{{ form.entente_enfants.id_for_label }}">Enfants</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Rechercher</button>
-                    <a href="{% url 'animal_list' %}" class="btn btn-outline-secondary w-100 mt-2">Réinitialiser</a>
-                </form>
+                </div>
+                
+                <button type="submit" class="btn btn-supreme w-100 mb-2 py-2 fw-bold" style="border-radius: 100px;"><i class="fa-solid fa-magnifying-glass me-2"></i>Rechercher</button>
+                <a href="{% url 'animal_list' %}" class="btn btn-light w-100 py-2 fw-bold" style="font-size: 0.85rem; border-radius: 100px; border: 1px solid rgba(0,0,0,0.05);">Réinitialiser</a>
+            </form>
             </div>
         </div>
     </div>
 
-    <!-- Colonne de résultats -->
-    <div class="col-md-9">
-        <h2 class="mb-4">Nos pensionnaires ({{ animaux|length }})</h2>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- Results Grid -->
+    <div class="col-xl-9 col-lg-8">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 reveal d-2">
             {% for animal in animaux %}
             <div class="col">
-                <div class="card card-animal h-100">
-                    <div class="card-body text-center">
-                        {% if animal.espece.nom_espece == 'Chien' %}
-                            <i class="fa-solid fa-dog fa-4x mb-3 text-secondary"></i>
-                        {% elif animal.espece.nom_espece == 'Chat' %}
-                            <i class="fa-solid fa-cat fa-4x mb-3 text-secondary"></i>
+                <div class="card-holo tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                    <!-- Photo -->
+                    <div class="card-holo-icon position-relative border-0" style="height: 180px;">
+                        {% if animal.photo %}
+                        <div class="position-absolute w-100 h-100" style="background: url('{{ animal.photo.url }}') center/cover no-repeat; transition: transform 0.6s ease;"></div>
+                        <div class="position-absolute w-100 h-100" style="background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.03) 100%);"></div>
                         {% else %}
-                            <i class="fa-solid fa-paw fa-4x mb-3 text-secondary"></i>
+                        <i class="fa-solid fa-paw"></i>
                         {% endif %}
                         
-                        <h4 class="card-title">{{ animal.nom }}</h4>
-                        <p class="card-text text-muted">
-                            {{ animal.espece }} - {% if animal.sexe == 'M' %}Mâle{% else %}Femelle{% endif %}
-                        </p>
-                        
-                        <div class="mb-3">
-                            {% if animal.statut == 'Disponible' %}
-                                <span class="badge badge-disponible px-3 py-2">Disponible</span>
-                            {% elif animal.statut == 'En soin' %}
-                                <span class="badge badge-en-soin px-3 py-2">En soin</span>
-                            {% elif animal.statut == 'Adopté' %}
-                                <span class="badge badge-adopte px-3 py-2"><i class="fa-solid fa-heart me-1"></i>Adopté</span>
-                            {% else %}
-                                <span class="badge badge-fa px-3 py-2">En FA</span>
-                            {% endif %}
+                        {% if animal.statut == 'Disponible' %}
+                            <span class="badge badge-neon badge-disponible position-absolute top-0 end-0 m-3 z-3"><i class="fa-solid fa-paw me-1"></i>À adopter</span>
+                        {% elif animal.statut == 'En soin' %}
+                            <span class="badge badge-neon badge-en-soin position-absolute top-0 end-0 m-3 z-3"><i class="fa-solid fa-bed me-1"></i>En soin</span>
+                        {% elif animal.statut == 'Adopté' %}
+                            <span class="badge badge-neon badge-adopte position-absolute top-0 end-0 m-3 z-3"><i class="fa-solid fa-heart me-1"></i>Adopté</span>
+                        {% else %}
+                            <span class="badge badge-neon badge-fa position-absolute top-0 end-0 m-3 z-3"><i class="fa-solid fa-people-roof me-1"></i>En FA</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="p-4 position-relative z-3" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border-top: 1px solid rgba(0,0,0,0.04);">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="mb-0 tech-font text-dark" style="font-size: 1.2rem;">{{ animal.nom }}</h4>
+                            <span class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: {% if animal.sexe == 'M' %}rgba(51,154,240,0.1){% else %}rgba(255,169,197,0.2){% endif %};">
+                                {% if animal.sexe == 'M' %}<i class="fa-solid fa-mars" style="color: #339AF0;"></i>{% else %}<i class="fa-solid fa-venus" style="color: var(--aurora-rose);"></i>{% endif %}
+                            </span>
                         </div>
                         
-                        <a href="{% url 'animal_detail' animal.id %}" class="btn btn-outline-primary btn-sm">Voir la fiche</a>
-                    </div>
-                    <div class="card-footer bg-transparent text-muted text-center small">
-                        Au refuge depuis le {{ animal.date_arrivee|date:"d/m/Y" }}
+                        <p class="fw-bold text-secondary mb-3" style="font-size: 0.9rem;">
+                            <i class="fa-solid fa-hashtag me-1 opacity-50"></i>{{ animal.espece }} {% if animal.race %}· {{ animal.race }}{% endif %}
+                        </p>
+                        
+                        <a href="{% url 'animal_detail' animal.id %}" class="btn btn-outline-supreme w-100 stretched-link py-2 fw-bold hover-lift" style="font-size: 0.9rem; border-radius: 100px; transition: all 0.3s;">Découvrir le profil <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        
+                        <div class="text-center fw-bold mt-3" style="font-size: 0.75rem; color: var(--text-muted);">
+                            <i class="fa-regular fa-calendar me-1"></i>Au refuge depuis le {{ animal.date_arrivee|date:"d M. Y" }}
+                        </div>
                     </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-12 text-center py-5">
-                <i class="fa-solid fa-magnifying-glass fa-3x text-muted mb-3"></i>
-                <p class="lead">Aucun animal ne correspond à vos critères.</p>
+            <div class="col-12">
+                <div class="glass-panel text-center py-5 p-5 mt-4">
+                    <div class="d-inline-flex justify-content-center align-items-center mb-4 rounded-circle" style="width: 90px; height: 90px; background: var(--primary-light);">
+                        <i class="fa-solid fa-face-frown-open fa-2x" style="color: var(--primary);"></i>
+                    </div>
+                    <h3 class="tech-font text-dark mb-3">Aucun résultat</h3>
+                    <p class="text-secondary fw-bold">Modifiez vos filtres pour découvrir d'autres compagnons.</p>
+                </div>
             </div>
             {% endfor %}
         </div>
+
+        <!-- Pagination -->
+        {% if animaux.has_other_pages %}
+        <nav class="mt-5 d-flex justify-content-center reveal d-3">
+            <ul class="pagination pagination-lg tech-font overflow-hidden" style="background: rgba(255,255,255,0.8); border-radius: 100px; border: 1.5px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-card);">
+                {% if animaux.has_previous %}
+                    <li class="page-item"><a class="page-link text-dark border-0 px-4" href="?page={{ animaux.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link text-muted border-0 px-4">&laquo;</span></li>
+                {% endif %}
+                
+                {% for i in animaux.paginator.page_range %}
+                    {% if animaux.number == i %}
+                        <li class="page-item active"><span class="page-link fw-bold border-0 px-4" style="background: var(--primary); color: white; border-radius: 100px;">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link text-dark border-0 px-4" href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if animaux.has_next %}
+                    <li class="page-item"><a class="page-link text-dark border-0 px-4" href="?page={{ animaux.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link text-muted border-0 px-4">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.form-control').forEach(i => i.classList.add('form-control-supreme'));
+        document.querySelectorAll('.form-select').forEach(s => s.classList.add('form-select-supreme'));
+    });
+</script>
 {% endblock content %}

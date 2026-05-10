@@ -1,0 +1,332 @@
+{% extends 'refuge/base.html' %}
+
+{% block hero %}
+<div class="hero-supreme reveal text-center position-relative" style="padding: 90px 20px 50px; z-index: 10;">
+    <div class="d-inline-flex align-items-center justify-content-center mb-4 py-2 px-4"
+        style="background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border-radius: 100px; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 8px 32px rgba(0,0,0,0.05); transform: translateY(0); transition: transform 0.3s; cursor: default;"
+        onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div class="me-2 position-relative"
+            style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 12px var(--primary);">
+            <div
+                style="position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px; background: var(--primary); border-radius: 50%; opacity: 0.4; animation: pulse 2s infinite;">
+            </div>
+        </div>
+        <span class="text-uppercase fw-bold"
+            style="font-size: 0.75rem; letter-spacing: 2px; color: var(--text-primary);">Centre de Commandement</span>
+    </div>
+    <h1 class="hero-title fw-black"
+        style="font-size: 4.8rem; letter-spacing: -3px; text-shadow: 0 12px 48px rgba(0,0,0,0.08);">
+        Vue <span
+            style="background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite;">Panoramique</span>
+    </h1>
+    <p class="hero-subtitle mx-auto mt-3" style="font-size: 1.25rem; color: var(--text-secondary); max-width: 600px;">
+        Supervisez l'écosystème ANIDOPT avec une interface de pointe.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="bento-grid mb-5" style="z-index: 10; position: relative; gap: 24px;">
+
+    <!-- STATS PRINCIPALES -->
+    <div class="glass-panel text-center reveal d-1 tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400"
+        data-tilt-glare data-tilt-max-glare="0.2"
+        style="grid-column: span 3; padding: 35px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; border-radius: 32px;">
+        <div class="bg-blob blob-primary"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="icon-glass mb-4 primary-glass">
+                <i class="fa-solid fa-paw fs-4" style="color: var(--primary);"></i>
+            </div>
+            <h2 class="display-3 fw-black mb-0 count-up" data-target="{{ total_animaux }}"
+                style="color: var(--text-primary); letter-spacing: -2px; line-height: 1;">0</h2>
+            <p class="text-uppercase fw-bold mb-0 mt-3"
+                style="font-size: 0.75rem; letter-spacing: 1.5px; color: var(--text-secondary);">Animaux au total</p>
+        </div>
+    </div>
+
+    <div class="glass-panel text-center reveal d-2 tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400"
+        data-tilt-glare data-tilt-max-glare="0.2"
+        style="grid-column: span 3; padding: 35px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; border-radius: 32px;">
+        <div class="bg-blob blob-success"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="icon-glass mb-4 success-glass">
+                <i class="fa-solid fa-house-chimney fs-4" style="color: var(--success);"></i>
+            </div>
+            <h2 class="display-3 fw-black mb-0 count-up" data-target="{{ disponibles }}"
+                style="color: var(--text-primary); letter-spacing: -2px; line-height: 1;">0</h2>
+            <p class="text-uppercase fw-bold mb-0 mt-3"
+                style="font-size: 0.75rem; letter-spacing: 1.5px; color: var(--text-secondary);">À l'adoption</p>
+        </div>
+    </div>
+
+    <div class="glass-panel text-center reveal d-3 tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400"
+        data-tilt-glare data-tilt-max-glare="0.2"
+        style="grid-column: span 3; padding: 35px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; border-radius: 32px;">
+        <div class="bg-blob blob-info"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="icon-glass mb-4 info-glass">
+                <i class="fa-solid fa-stethoscope fs-4" style="color: #339AF0;"></i>
+            </div>
+            <h2 class="display-3 fw-black mb-0 count-up" data-target="{{ en_soin }}"
+                style="color: var(--text-primary); letter-spacing: -2px; line-height: 1;">0</h2>
+            <p class="text-uppercase fw-bold mb-0 mt-3"
+                style="font-size: 0.75rem; letter-spacing: 1.5px; color: var(--text-secondary);">En soins intensifs</p>
+        </div>
+    </div>
+
+    <div class="glass-panel text-center reveal d-4 tilt-card" data-tilt data-tilt-max="5" data-tilt-speed="400"
+        data-tilt-glare data-tilt-max-glare="0.2"
+        style="grid-column: span 3; padding: 35px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; border-radius: 32px;">
+        <div class="bg-blob blob-accent"></div>
+        <div style="position: relative; z-index: 1;">
+            <div class="icon-glass mb-4 accent-glass">
+                <i class="fa-solid fa-heart fs-4" style="color: var(--accent);"></i>
+            </div>
+            <h2 class="display-3 fw-black mb-0 count-up" data-target="{{ adoptes }}"
+                style="color: var(--text-primary); letter-spacing: -2px; line-height: 1;">0</h2>
+            <p class="text-uppercase fw-bold mb-0 mt-3"
+                style="font-size: 0.75rem; letter-spacing: 1.5px; color: var(--text-secondary);">Animaux adoptés</p>
+        </div>
+    </div>
+
+    <!-- GRAPHIQUE DES ESPÈCES -->
+    <div class="glass-panel reveal d-1"
+        style="grid-column: span 4; padding: 40px; min-height: 450px; display: flex; flex-direction: column; border-radius: 32px; position: relative;">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h4 class="fw-bold mb-0 text-primary d-flex align-items-center">
+                <div class="icon-glass-sm me-3 primary-glass"><i class="fa-solid fa-chart-pie"></i></div>
+                Répartition
+            </h4>
+        </div>
+        <div class="flex-grow-1 position-relative d-flex justify-content-center align-items-center"
+            style="min-height: 220px;">
+            <canvas id="speciesChart"></canvas>
+            <!-- Centre du Doughnut -->
+            <div class="position-absolute text-center"
+                style="pointer-events: none; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <i class="fa-solid fa-fingerprint fs-3 text-muted opacity-50 mb-1"></i>
+            </div>
+        </div>
+        <!-- Custom Legend -->
+        <div class="d-flex justify-content-around mt-5 bg-white bg-opacity-50 p-3" style="border-radius: 20px;">
+            <div class="text-center">
+                <span class="d-inline-block rounded-pill mb-2"
+                    style="width: 24px; height: 4px; background: var(--primary);"></span>
+                <div class="fw-bold text-secondary fs-sm text-uppercase" style="letter-spacing: 1px;">Chiens</div>
+                <div class="fw-black fs-5">{{ chiens }}</div>
+            </div>
+            <div class="text-center">
+                <span class="d-inline-block rounded-pill mb-2"
+                    style="width: 24px; height: 4px; background: var(--accent);"></span>
+                <div class="fw-bold text-secondary fs-sm text-uppercase" style="letter-spacing: 1px;">Chats</div>
+                <div class="fw-black fs-5">{{ chats }}</div>
+            </div>
+            <div class="text-center">
+                <span class="d-inline-block rounded-pill mb-2"
+                    style="width: 24px; height: 4px; background: var(--success);"></span>
+                <div class="fw-bold text-secondary fs-sm text-uppercase" style="letter-spacing: 1px;">NACs</div>
+                <div class="fw-black fs-5">{{ nacs }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DERNIÈRES ARRIVÉES -->
+    <div class="glass-panel reveal d-2"
+        style="grid-column: span 8; padding: 40px; display: flex; flex-direction: column; border-radius: 32px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0 text-primary d-flex align-items-center">
+                <div class="icon-glass-sm me-3 primary-glass"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                Registre Récent
+            </h4>
+            <a href="{% url 'animal_list' %}"
+                class="btn btn-sm btn-supreme rounded-pill px-4 fw-bold shadow-sm">Registre complet <i
+                    class="fa-solid fa-arrow-right ms-2"></i></a>
+        </div>
+
+        <div class="table-responsive flex-grow-1 mt-2">
+            <table class="table table-borderless align-middle mb-0 w-100 premium-table">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-muted fw-bold pb-3 px-3"
+                            style="font-size: 0.75rem; letter-spacing: 1.5px;">Identité</th>
+                        <th class="text-uppercase text-muted fw-bold pb-3 px-3"
+                            style="font-size: 0.75rem; letter-spacing: 1.5px;">Espèce</th>
+                        <th class="text-uppercase text-muted fw-bold pb-3 px-3"
+                            style="font-size: 0.75rem; letter-spacing: 1.5px;">Statut</th>
+                        <th class="text-uppercase text-muted fw-bold pb-3 px-3 text-end"
+                            style="font-size: 0.75rem; letter-spacing: 1.5px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody style="border-top: 1px solid rgba(0,0,0,0.04);">
+                    {% for animal in recent_animaux %}
+                    <tr class="hover-row">
+                        <td class="py-3 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar shadow-sm position-relative me-3"
+                                    style="width: 52px; height: 52px; border-radius: 18px; overflow: hidden; border: 2px solid white; background: #f8f9fa;">
+                                    {% if animal.photo %}
+                                    <img src="{{ animal.photo.url }}" alt="{{ animal.nom }}"
+                                        class="w-100 h-100 object-fit-cover" style="transition: transform 0.5s;">
+                                    {% else %}
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-paw text-muted opacity-50"></i>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h6 class="fw-black mb-1 text-primary" style="font-size: 1.1rem;">{{ animal.nom }}
+                                    </h6>
+                                    <span class="badge bg-light text-secondary border d-inline-flex align-items-center"
+                                        style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;">
+                                        <i class="fa-regular fa-calendar me-1"></i> {{ animal.date_arrivee|date:"d M Y"
+                                        }}
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-3">
+                            <div class="d-inline-flex align-items-center px-3 py-1 rounded-pill"
+                                style="background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);">
+                                {% if animal.espece.nom_espece == 'Chien' %}
+                                <i class="fa-solid fa-dog me-2 text-primary"></i>
+                                {% elif animal.espece.nom_espece == 'Chat' %}
+                                <i class="fa-solid fa-cat me-2 text-accent"></i>
+                                {% else %}
+                                <i class="fa-solid fa-frog me-2 text-success"></i>
+                                {% endif %}
+                                <span class="fw-bold text-secondary" style="font-size: 0.85rem;">{{
+                                    animal.espece.nom_espece }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-3">
+                            {% if animal.statut == 'Disponible' %}
+                            <span class="badge badge-neon badge-disponible"><i
+                                    class="fa-solid fa-circle-check me-1"></i>Disponible</span>
+                            {% elif animal.statut == 'En soin' %}
+                            <span class="badge badge-neon badge-en-soin"><i class="fa-solid fa-syringe me-1"></i>En
+                                soin</span>
+                            {% elif animal.statut == 'Adopté' %}
+                            <span class="badge badge-neon badge-adopte"><i
+                                    class="fa-solid fa-heart me-1"></i>Adopté</span>
+                            {% else %}
+                            <span class="badge badge-neon badge-fa"><i class="fa-solid fa-house-user me-1"></i>{{
+                                animal.statut }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-3 text-end">
+                            <a href="{% url 'animal_detail' animal.pk %}"
+                                class="btn btn-sm btn-light rounded-circle border p-0 d-inline-flex justify-content-center align-items-center action-btn"
+                                style="width: 40px; height: 40px; transition: all 0.3s;">
+                                <i class="fa-solid fa-arrow-right text-primary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="mb-3"
+                                    style="width: 80px; height: 80px; border-radius: 50%; background: rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-regular fa-folder-open fs-1 text-muted opacity-50"></i>
+                                </div>
+                                <h5 class="fw-bold text-secondary mb-1">Registre vide</h5>
+                                <p class="mb-0 fs-sm">Aucun pensionnaire n'a été ajouté récemment.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts pour Chart.js, VanillaTilt et animations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // 1. ANIMATION DES COMPTEURS (CountUp)
+        const counters = document.querySelectorAll('.count-up');
+        const speed = 200;
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 15);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+
+        // 2. GRAPHIQUE DOUGHNUT ULTRA PREMIUM
+        const ctx = document.getElementById('speciesChart').getContext('2d');
+
+        const gradientPrimary = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientPrimary.addColorStop(0, '#FF6B6B');
+        gradientPrimary.addColorStop(1, '#FFA8A8');
+
+        const gradientAccent = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientAccent.addColorStop(0, '#845EF7');
+        gradientAccent.addColorStop(1, '#B197FC');
+
+        const gradientSuccess = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientSuccess.addColorStop(0, '#40C057');
+        gradientSuccess.addColorStop(1, '#8CE99A');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Chiens', 'Chats', 'NACs'],
+                datasets: [{
+                    data: [{{ chiens }}, {{ chats }}, {{ nacs }}],
+        backgroundColor: [gradientPrimary, gradientAccent, gradientSuccess],
+        borderWidth: 4,
+        borderColor: '#ffffff',
+        hoverOffset: 15,
+        cutout: '78%',
+        borderRadius: 10
+                }]
+            },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: 15 },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                titleColor: '#1A1A2E',
+                bodyColor: '#1A1A2E',
+                borderColor: 'rgba(0,0,0,0.08)',
+                borderWidth: 1,
+                padding: 16,
+                boxPadding: 8,
+                usePointStyle: true,
+                titleFont: { family: "'Plus Jakarta Sans', sans-serif", size: 14, weight: 'bold' },
+                bodyFont: { family: "'Nunito', sans-serif", size: 14, weight: 'bold' },
+                callbacks: {
+                    label: function (context) {
+                        return `  ${context.raw} pensionnaires`;
+                    }
+                }
+            }
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true,
+            duration: 2500,
+            easing: 'easeOutExpo'
+        }
+    }
+        });
+    });
+</script>
+{% endblock %}

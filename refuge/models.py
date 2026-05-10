@@ -26,6 +26,7 @@ class Animal(models.Model):
     race = models.CharField(max_length=100, blank=True, verbose_name="Race")
     sexe = models.CharField(max_length=1, choices=SEXE_CHOICES, default='M', verbose_name="Sexe")
     date_naissance_estimee = models.DateField(verbose_name="Date de naissance estimée")
+    photo = models.ImageField(upload_to='animaux/', blank=True, null=True, verbose_name="Photo de l'animal")
     
     # Santé
     vaccine = models.BooleanField(default=False, verbose_name="Vacciné")

@@ -7,6 +7,8 @@ urlpatterns = [
     path('animal/<int:pk>/', views.animal_detail, name='animal_detail'),
     path('animal/nouveau/', views.animal_create, name='animal_create'),
     path('animal/<int:pk>/modifier/', views.animal_update, name='animal_update'),
+    path('animal/<int:pk>/supprimer/', views.animal_delete, name='animal_delete'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='refuge/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
 ]

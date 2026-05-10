@@ -1,33 +1,45 @@
 {% extends 'refuge/base.html' %}
 
 {% block content %}
-<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
-    <div class="col-md-5">
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white text-center py-3">
-                <h4 class="mb-0"><i class="fa-solid fa-lock me-2"></i>Espace Bénévole</h4>
+<div class="row justify-content-center align-items-center reveal" style="min-height: 70vh;">
+    <div class="col-md-5 col-lg-4 col-xl-4">
+        
+        <div class="text-center mb-5">
+            <div class="d-inline-flex justify-content-center align-items-center mb-4 rounded-circle" style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); border: 2px solid white; box-shadow: 0 8px 24px rgba(255,107,107,0.15);">
+                <i class="fa-solid fa-shield-heart fa-2x" style="color: var(--primary);"></i>
             </div>
-            <div class="card-body p-4">
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    Identifiant ou mot de passe incorrect.
+            <h1 class="fs-2 tech-font fw-black mb-2" style="background: linear-gradient(135deg, var(--primary), var(--accent)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite;">Espace Bénévole</h1>
+            <p class="text-secondary fw-bold" style="font-size: 0.95rem;">Connectez-vous pour gérer les adoptions.</p>
+        </div>
+
+        <div class="glass-panel p-5 position-relative overflow-hidden tilt-card" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="bg-blob blob-primary"></div>
+            <div style="position: relative; z-index: 1;">
+            {% if form.errors %}
+            <div class="p-3 mb-4 rounded-4" style="background: var(--primary-light); border: 1.5px solid rgba(255,107,107,0.2);">
+                <span class="fw-bold" style="color: var(--primary);"><i class="fa-solid fa-circle-exclamation me-2"></i>Identifiants incorrects.</span>
+            </div>
+            {% endif %}
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Identifiant</label>
+                    <input type="text" name="username" class="form-control form-control-supreme" autofocus required id="id_username" placeholder="Votre nom d'utilisateur">
                 </div>
-                {% endif %}
+                <div class="mb-4">
+                    <label class="form-label">Mot de passe</label>
+                    <input type="password" name="password" class="form-control form-control-supreme" required id="id_password" placeholder="••••••••">
+                </div>
                 
-                <form method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">Nom d'utilisateur</label>
-                        <input type="text" name="username" class="form-control" autofocus required id="id_username">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-control" required id="id_password">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-                    <input type="hidden" name="next" value="{{ next }}">
-                </form>
+                <button type="submit" class="btn btn-supreme w-100 py-3"><i class="fa-solid fa-right-to-bracket me-2"></i>Se connecter</button>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
             </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'animal_list' %}" class="text-secondary text-decoration-none fw-bold" style="font-size: 0.9rem;"><i class="fa-solid fa-arrow-left me-2"></i>Retour au catalogue</a>
         </div>
     </div>
 </div>

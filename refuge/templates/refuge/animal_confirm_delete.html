@@ -1,0 +1,50 @@
+{% extends 'refuge/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center reveal" style="min-height: 60vh;">
+    <div class="col-md-5 col-lg-4 col-xl-4">
+        
+        <div class="text-center mb-5">
+            <div class="d-inline-flex justify-content-center align-items-center mb-4 rounded-circle" style="width: 90px; height: 90px; background: var(--primary-light); border: 2px solid white; box-shadow: 0 8px 24px rgba(255,107,107,0.15);">
+                <i class="fa-solid fa-triangle-exclamation fa-2x" style="color: var(--primary);"></i>
+            </div>
+            <h1 class="fs-3 tech-font text-dark mb-2">Confirmer la suppression</h1>
+            <p class="text-secondary fw-bold" style="font-size: 0.95rem;">Cette action est irréversible.</p>
+        </div>
+
+        <div class="glass-panel p-5 mb-4">
+            <div class="d-flex align-items-center mb-4 pb-4" style="border-bottom: 1.5px solid rgba(0,0,0,0.06);">
+                {% if animal.photo %}
+                <img src="{{ animal.photo.url }}" class="rounded-4 me-4 object-fit-cover" width="72" height="72" style="box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="{{ animal.nom }}">
+                {% else %}
+                <div class="rounded-4 d-flex justify-content-center align-items-center me-4" style="width: 72px; height: 72px; background: var(--primary-light);">
+                    <i class="fa-solid fa-paw fa-2x" style="color: var(--primary);"></i>
+                </div>
+                {% endif %}
+                <div>
+                    <h4 class="mb-0 tech-font text-dark">{{ animal.nom }}</h4>
+                    <p class="mb-0 fw-bold text-secondary">{{ animal.espece }} {% if animal.race %}· {{ animal.race }}{% endif %}</p>
+                </div>
+            </div>
+
+            <p class="text-dark fw-bold mb-0">
+                <i class="fa-solid fa-circle-info me-2" style="color: var(--primary);"></i>
+                Toutes les données de <strong>{{ animal.nom }}</strong> seront définitivement supprimées.
+            </p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex gap-3">
+                <a href="{% url 'animal_detail' animal.id %}" class="btn btn-outline-supreme flex-fill py-3">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Annuler
+                </a>
+                <button type="submit" class="btn flex-fill py-3 fw-bold text-white" style="background: linear-gradient(135deg, #FF6B6B, #EE5A24); border: none; border-radius: 100px; font-family: 'Plus Jakarta Sans', sans-serif; box-shadow: 0 8px 24px rgba(238,90,36,0.3);">
+                    <i class="fa-solid fa-trash me-2"></i>Supprimer
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+{% endblock content %}
